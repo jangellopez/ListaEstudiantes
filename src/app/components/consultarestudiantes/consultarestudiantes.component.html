@@ -1,0 +1,34 @@
+<div class="container">
+  <h3>Listado de estudiantes</h3>
+  <table class="table" *ngIf="listaEstudiantes !== null">
+    <thead>
+      <th>Identificacion</th>
+      <th>Nombre</th>
+      <th>Nota 1</th>
+      <th>Nota 2</th>
+      <th>Nota 3</th>
+      <th>Promedio</th>
+      <th>Estado</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estudiante of listaEstudiantes; let i = index">
+        <td>{{ estudiante.identificacion }}</td>
+        <td>{{ estudiante.nombre }}</td>
+        <td>{{ estudiante.nota1 }}</td>
+        <td>{{ estudiante.nota2 }}</td>
+        <td>{{ estudiante.nota3 }}</td>
+        <td>
+          {{ (estudiante.nota1 + estudiante.nota2 + estudiante.nota3) / 3 }}
+        </td>
+        <td [ngStyle]="{'color': estudiante.estado === 'Aprobado' ? 'green' : estudiante.estado === 'Reprobado' ? 'red' : 'black' }">{{estudiante.estado}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngFor="let estudiante of listaEstudiantes; let IsLast = last">
+    <span *ngIf="IsLast">El ultimo estudiante registrado es: {{estudiante.nombre}}</span>
+  </div>
+  <h3 *ngIf="listaEstudiantes === null">No hay registros para mostrar</h3>
+  <div class="form-group">
+    <button class="btn btn-secondary" routerLink="/registrar">Volver</button>
+</div>
+</div>

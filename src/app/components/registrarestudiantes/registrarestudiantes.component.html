@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="form-group">
+        <h3>Registrar estudiantes</h3>
+        <form [formGroup]="registrar" (ngSubmit)=registrarEstudiante()>
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Identificacion" formControlName="identificacion">
+                <span class="text-danger ml-2"
+                    *ngIf="registrar.get('identificacion')?.hasError('required') && registrar.get('identificacion')?.touched">
+                    La identificacion <strong>es requerida</strong>
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+                <span class="text-danger ml-2"
+                    *ngIf="registrar.get('nombre')?.hasError('required') && registrar.get('nombre')?.touched">
+                    El nombre <strong>es requerido</strong>
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Nota 1" formControlName="nota1">
+                <span class="text-danger ml-2"
+                    *ngIf="registrar.get('nota1')?.hasError('required') && registrar.get('nota1')?.touched">
+                    La nota 1 <strong>es requerida</strong>
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Nota 2" formControlName="nota2">
+                <span class="text-danger ml-2"
+                    *ngIf="registrar.get('nota2')?.hasError('required') && registrar.get('nota2')?.touched">
+                    La nota 2 <strong>es requerida</strong>
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Nota 3" formControlName="nota3">
+                <span class="text-danger ml-2"
+                    *ngIf="registrar.get('nota3')?.hasError('required') && registrar.get('nota3')?.touched">
+                    La identificacion <strong>es requerido</strong>
+                </span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary mr-2 btn-registrar" [disabled]="registrar.invalid" type="submit">Registrar</button>
+                <button class="btn btn-secondary" routerLink="/consultar">Consultar</button>
+            </div>
+        </form>
+    </div>
+</div>
