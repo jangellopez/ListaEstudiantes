@@ -1,27 +1,43 @@
 # ListaEstudiantes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
+## Version y configuracion
 
-## Development server
+Angular CLI: 13.2.6
+Node: 14.18.0
+Bootstrap: 4.5.2
+ngx-toastr: 14.2.2
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Componentes
 
-## Code scaffolding
+Se hizo uso de 2 componentes
+1. RegistrarEstudiantes
+2. ConsultarEstudiantes
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Se hizo uso de la navegacion mediante routing.
 
-## Build
+## Funcionamiento
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Se creo una clase Estudiantes con los atributos: Identificaciones, nombre, nota 1, nota 2, nota 3, promedio y estado.
 
-## Running unit tests
+## Componente registrar
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Para el componente de registro se utilizaron formularios reactivos con 5 campos: Identificacion, nombre, nota 1, nota 2, nota 3 y el respectivo boton de registrar.
 
-## Running end-to-end tests
+Todos los campos son requeridos, hasta que no se llenen todos los campos no se habilita el boton de registrar.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Al momento de registrar al estudiante se hizo uso del Toast para mostrar un mensaje de "Registrado correctamente"
 
-## Further help
+Además se añadio un boton "Consultar" para redireccionar al componente consultarEstudiante.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para el almacenamiento de los datos se hizo uso de LocalStorage.
+
+## Componente consultar
+
+Para el componente de consulta se hizo uso de una tabla con todos los campos respectivos.
+
+- Se hizo uso de la directiva ngFor para recorrer la lista de estudiantes.
+- Se hizo uso de la directiva ngIf para que en caso de que no haya registro muestre el respectivo mensaje.
+- Se hizo uso de la directiva ngStyle para diferenciar mediante colores el estado del estudiante: Verde para Aprobado, Rojo para Reprobado y Negro para Excluido.
+
+Además se añadio un label para mostrar el ultimo estudiante de la lista utilizando la propiedad Last de la directiva ngFor.
+
