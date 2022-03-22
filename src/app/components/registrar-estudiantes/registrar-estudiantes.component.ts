@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrarestudiantesComponent implements OnInit {
   formRegistrar: FormGroup;
-
   constructor(private fb: FormBuilder, private toastr: ToastrService) {
     this.formRegistrar = this.fb.group({
       identificacion: ['', Validators.required],
@@ -21,7 +20,7 @@ export class RegistrarestudiantesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   promedio!: number;
   estado!: string;
@@ -41,8 +40,6 @@ export class RegistrarestudiantesComponent implements OnInit {
       this.estado = 'Excluido';
     }
 
-    console.log(this.formRegistrar);
-
     const estudiante: Estudiante = {
       identificacion: this.formRegistrar.value.identificacion,
       nombre: this.formRegistrar.value.nombre,
@@ -54,21 +51,34 @@ export class RegistrarestudiantesComponent implements OnInit {
     };
 
     let listaEstudiantes: Estudiante[] = [];
-
-    if(estudiante.identificacion != JSON.parse(localStorage.getItem('estudiantes')!).identificacion){
-      this.toastr.error('Esta identificacion ya fue registrada, ingrese una nueva', 'Error');
-      this.formRegistrar.reset();
-    }else if(localStorage.getItem('estudiante') === null){
+    var bandera = 1;
+    if (localStorage.getItem('estudiantes') === null) {
       listaEstudiantes.push(estudiante);
       localStorage.setItem('estudiantes', JSON.stringify(listaEstudiantes));
       this.toastr.success('Registrado correctamente', 'Mensaje');
       this.formRegistrar.reset();
-    }else{
+    } else {
       listaEstudiantes = JSON.parse(localStorage.getItem('estudiantes')!);
-      listaEstudiantes.push(estudiante);
-      localStorage.setItem('estudiantes', JSON.stringify(listaEstudiantes));
-      this.toastr.success('Registrado correctamente', 'Mensaje');
-      this.formRegistrar.reset();
+
+      for (var i in listaEstudiantes) {
+        if (estudiante.identificacion == listaEstudiantes[i].identificacion) {
+          bandera = 0;
+          break
+        }
+      }
+
+      if (bandera == 1) {
+        listaEstudiantes.push(estudiante);
+        localStorage.setItem('estudiantes', JSON.stringify(listaEstudiantes));
+        this.toastr.success('Registrado correctamente', 'Mensaje');
+        this.formRegistrar.reset();
+      } else {
+        this.toastr.error('Esta identificacion ya fue registrada, ingrese una nueva', 'Error');
+        this.formRegistrar.reset();
+      }
     }
+
+
+    console.log(this.formRegistrar);
   }
 }
