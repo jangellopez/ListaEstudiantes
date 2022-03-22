@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-consultarestudiantes',
-  templateUrl: './consultarestudiantes.component.html',
-  styleUrls: ['./consultarestudiantes.component.css'],
+  templateUrl: './consultar-estudiantes.component.html',
+  styleUrls: ['./consultar-estudiantes.component.css'],
 })
 export class ConsultarestudiantesComponent implements OnInit {
   listaEstudiantes: any[] = [];

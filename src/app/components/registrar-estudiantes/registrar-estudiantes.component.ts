@@ -5,14 +5,14 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registrarestudiantes',
-  templateUrl: './registrarestudiantes.component.html',
-  styleUrls: ['./registrarestudiantes.component.css'],
+  templateUrl: './registrar-estudiantes.component.html',
+  styleUrls: ['./registrar-estudiantes.component.css'],
 })
 export class RegistrarestudiantesComponent implements OnInit {
-  registrar: FormGroup;
+  formRegistrar: FormGroup;
 
   constructor(private fb: FormBuilder, private toastr: ToastrService) {
-    this.registrar = this.fb.group({
+    this.formRegistrar = this.fb.group({
       identificacion: ['', Validators.required],
       nombre: ['', Validators.required],
       nota1: ['', Validators.required],
@@ -28,9 +28,9 @@ export class RegistrarestudiantesComponent implements OnInit {
 
   registrarEstudiante(): void {
     this.promedio =
-      (this.registrar.value.nota1 +
-        this.registrar.value.nota2 +
-        this.registrar.value.nota3) /
+      (this.formRegistrar.value.nota1 +
+        this.formRegistrar.value.nota2 +
+        this.formRegistrar.value.nota3) /
       3;
 
     if (this.promedio >= 3) {
@@ -41,29 +41,34 @@ export class RegistrarestudiantesComponent implements OnInit {
       this.estado = 'Excluido';
     }
 
-    console.log(this.registrar);
+    console.log(this.formRegistrar);
+
     const estudiante: Estudiante = {
-      identificacion: this.registrar.value.identificacion,
-      nombre: this.registrar.value.nombre,
-      nota1: this.registrar.value.nota1,
-      nota2: this.registrar.value.nota2,
-      nota3: this.registrar.value.nota3,
+      identificacion: this.formRegistrar.value.identificacion,
+      nombre: this.formRegistrar.value.nombre,
+      nota1: this.formRegistrar.value.nota1,
+      nota2: this.formRegistrar.value.nota2,
+      nota3: this.formRegistrar.value.nota3,
       promedio: this.promedio,
       estado: this.estado,
     };
 
     let listaEstudiantes: Estudiante[] = [];
-    if (localStorage.getItem('estudiantes') === null) {
+
+    if(estudiante.identificacion != JSON.parse(localStorage.getItem('estudiantes')!).identificacion){
+      this.toastr.error('Esta identificacion ya fue registrada, ingrese una nueva', 'Error');
+      this.formRegistrar.reset();
+    }else if(localStorage.getItem('estudiante') === null){
       listaEstudiantes.push(estudiante);
       localStorage.setItem('estudiantes', JSON.stringify(listaEstudiantes));
       this.toastr.success('Registrado correctamente', 'Mensaje');
-      this.registrar.reset();
-    } else {
+      this.formRegistrar.reset();
+    }else{
       listaEstudiantes = JSON.parse(localStorage.getItem('estudiantes')!);
       listaEstudiantes.push(estudiante);
       localStorage.setItem('estudiantes', JSON.stringify(listaEstudiantes));
       this.toastr.success('Registrado correctamente', 'Mensaje');
-      this.registrar.reset();
+      this.formRegistrar.reset();
     }
   }
 }
